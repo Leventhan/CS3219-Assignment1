@@ -48,7 +48,9 @@ public class Main {
 			// Pipe and Filter
 			Sink<Object, Object> sink = new DisplaySink();
 			Pipe sinkPipe = new Pipe(sink);
-			Filter alphabeticalSortFilter = new alphabeticalSortFilter(sinkPipe);
+			Filter titleizeFilter = new titleizeFilter(sinkPipe);
+			Pipe titleizePipe = new Pipe(titleizeFilter);
+			Filter alphabeticalSortFilter = new alphabeticalSortFilter(titleizePipe);
 			Pipe alphabeticalSortPipe = new Pipe(alphabeticalSortFilter);
 			Filter pruneIgnoredFilter = new pruneIgnoredFilter(alphabeticalSortPipe);
 			Pipe pruneIgnoredPipe = new Pipe(pruneIgnoredFilter);
