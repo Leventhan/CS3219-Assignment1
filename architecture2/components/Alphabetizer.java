@@ -1,8 +1,9 @@
-package components;
+package architecture2.components;
+
 import java.util.Collections;
 import java.util.Vector;
 
-import model.ObservedLineStorage;
+import architecture2.model.ObservedLineStorage;
 
 public class Alphabetizer implements Observer {
 	private ObservedLineStorage target;

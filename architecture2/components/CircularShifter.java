@@ -1,21 +1,23 @@
-package components;
+package architecture2.components;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import model.ObservedLineStorage;
+import architecture2.model.ObservedLineStorage;
 
 public class CircularShifter implements Observer {
 	private ObservedLineStorage source, target;
-	private String ignoreList;
-	public CircularShifter(ObservedLineStorage a, ObservedLineStorage b, String ignoreList) {
+	private List<String> ignoredList;
+	public CircularShifter(ObservedLineStorage a, ObservedLineStorage b, String[] ignored) {
 		source = a;
 		target = b;
 		source.addObserver(this);
+		ignoredList = Arrays.asList(ignored);
 	}
 	
 	public void update() {
 		circularShift(source.getLine());
-		
 	}
 	
 	private void circularShift(String line) {
@@ -23,17 +25,20 @@ public class CircularShifter implements Observer {
 		int count = 0;
 		Vector<Vector<String>> buffer = new Vector<Vector<String>>();
 		while (tokenizer.hasMoreTokens()) {
-			String current = tokenizer.nextToken();
-			if (ignoreList.contains(current)) {
+			String word = tokenizer.nextToken();
+			String lowerCaseWord = word.toLowerCase();
+			String upperCaseWord = word.toUpperCase();
+			String capitalWord = word.substring(0,1).toUpperCase().concat(word.substring(1));
+			if (ignoredList.contains(word) || ignoredList.contains(lowerCaseWord) || ignoredList.contains(capitalWord) || ignoredList.contains(upperCaseWord)) {
 				for (int i = 0; i < count; i++) {
-					buffer.get(i).add(current);
+					buffer.get(i).add(word);
 				}
 				continue;
 			}
 			count++;
 			buffer.add(new Vector<String>());
 			for (int j = 0; j < count; j++) {
-				buffer.get(j).add(current);
+				buffer.get(j).add(word);
 			}
 		}
 		for (int k = 1; k < buffer.size(); k++) {

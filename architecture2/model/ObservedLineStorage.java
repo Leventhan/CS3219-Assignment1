@@ -1,8 +1,8 @@
-package model;
+package architecture2.model;
 
 import java.util.Vector;
 
-import components.Observer;
+import architecture2.components.Observer;
 
 public interface ObservedLineStorage {
 	public void insertLine(String line);

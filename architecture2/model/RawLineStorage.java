@@ -1,13 +1,13 @@
-package model;
+package architecture2.model;
 import java.util.Vector;
 
-import components.Observer;
+import architecture2.components.Observer;
 
-public class ProcessedLineStorage implements ObservedLineStorage {
+public class RawLineStorage implements ObservedLineStorage {
 	private Vector<String> lineStore;
 	private Vector<Observer> observers;
 	
-	public ProcessedLineStorage() {
+	public RawLineStorage() {
 		lineStore = new Vector<String>();
 		observers = new Vector<Observer>();
 	}
