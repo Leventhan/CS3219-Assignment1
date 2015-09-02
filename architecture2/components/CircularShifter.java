@@ -50,7 +50,12 @@ public class CircularShifter implements Observer {
 		for (int x = 0; x < buffer.size(); x++) {
 			String shiftedLine = "";
 			for (int y = 0; y < buffer.get(x).size(); y++) {
-				shiftedLine = shiftedLine.concat(" " + buffer.get(x).get(y));
+				if (y == 0) {
+					shiftedLine = shiftedLine.concat(" " + buffer.get(x).get(y).toUpperCase());
+				}
+				else {
+					shiftedLine = shiftedLine.concat(" " + buffer.get(x).get(y).toLowerCase());
+				}
 			}
 			shiftedLine = shiftedLine.substring(1);
 			target.insertLine(shiftedLine);
