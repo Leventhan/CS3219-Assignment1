@@ -24,6 +24,7 @@ public class titleizeFilter extends Filter {
 	}
 
 	public String titleize(String str){
-		return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+		int spaceIndex = str.indexOf(' ');
+		return str.substring(0, spaceIndex).toUpperCase() + str.substring(spaceIndex).toLowerCase();
 	}
 }
