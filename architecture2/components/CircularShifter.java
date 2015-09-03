@@ -24,29 +24,11 @@ public class CircularShifter implements Observer {
 		StringTokenizer tokenizer = new StringTokenizer(line, " ");
 		int count = 0;
 		Vector<Vector<String>> buffer = new Vector<Vector<String>>();
-		while (tokenizer.hasMoreTokens()) {
-			String word = tokenizer.nextToken();
-			String lowerCaseWord = word.toLowerCase();
-			String upperCaseWord = word.toUpperCase();
-			String capitalWord = word.substring(0,1).toUpperCase().concat(word.substring(1));
-			if (ignoredList.contains(word) || ignoredList.contains(lowerCaseWord) || ignoredList.contains(capitalWord) || ignoredList.contains(upperCaseWord)) {
-				for (int i = 0; i < count; i++) {
-					buffer.get(i).add(word);
-				}
-				continue;
-			}
-			count++;
-			buffer.add(new Vector<String>());
-			for (int j = 0; j < count; j++) {
-				buffer.get(j).add(word);
-			}
-		}
-		for (int k = 1; k < buffer.size(); k++) {
-			int amount = buffer.get(0).size() - buffer.get(k).size();
-			for (int l = 0; l < amount; l++) {
-				buffer.get(k).add(buffer.get(0).get(l));
-			}
-		}
+		processShiftedLines(tokenizer, count, buffer);
+		insertShiftedLines(buffer);
+	}
+
+	private void insertShiftedLines(Vector<Vector<String>> buffer) {
 		for (int x = 0; x < buffer.size(); x++) {
 			String shiftedLine = "";
 			for (int y = 0; y < buffer.get(x).size(); y++) {
@@ -59,6 +41,44 @@ public class CircularShifter implements Observer {
 			}
 			shiftedLine = shiftedLine.substring(1);
 			target.insertLine(shiftedLine);
+		}
+	}
+
+	private void processShiftedLines(StringTokenizer tokenizer, int count,
+			Vector<Vector<String>> buffer) {
+		while (tokenizer.hasMoreTokens()) {
+			String word = tokenizer.nextToken();
+			if (isIgnored(word, ignoredList)) {
+				addWord(count, buffer, word);
+				continue;
+			}
+			count++;
+			buffer.add(new Vector<String>());
+			addWord(count, buffer, word);
+		}
+		for (int k = 1; k < buffer.size(); k++) {
+			int amount = buffer.get(0).size() - buffer.get(k).size();
+			for (int l = 0; l < amount; l++) {
+				buffer.get(k).add(buffer.get(0).get(l));
+			}
+		}
+	}
+
+	private boolean isIgnored(String word, List<String> ignoredList) {
+		String lowerCaseWord = word.toLowerCase();
+		String upperCaseWord = word.toUpperCase();
+		String capitalWord = word.substring(0,1).toUpperCase().concat(word.substring(1));
+		
+		if (ignoredList.contains(word) || ignoredList.contains(lowerCaseWord) || 
+				ignoredList.contains(capitalWord) || ignoredList.contains(upperCaseWord)) {
+			return true;
+		}
+		return false;
+	}
+
+	private void addWord(int count, Vector<Vector<String>> buffer, String word) {
+		for (int i = 0; i < count; i++) {
+			buffer.get(i).add(word);
 		}
 	}
 }
