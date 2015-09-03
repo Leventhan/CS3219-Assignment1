@@ -61,6 +61,7 @@ public class Main {
 		} else {
 			// call MasterControl of architecture2
 			MasterControl master = new MasterControl(titles, ignored);
+			master.process();
 		}
 	}
 
