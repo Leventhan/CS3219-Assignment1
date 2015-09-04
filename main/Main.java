@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		int whichArchitecture = 1;
+		int whichArchitecture = 0;
 		String titles[] = {};
 		String ignored[] = {};
 		
@@ -34,8 +35,21 @@ public class Main {
 		    titles = readLines(args[1]);
 		    ignored = readLines(args[2]);
 		} else {
-	        System.err.println("Needs 3 arguments.");
-	        System.exit(1);
+			Scanner sc = new Scanner(System.in);
+			while (whichArchitecture != 1 && whichArchitecture != 2) {
+				System.out.println("Which architecture do you prefer? Please choose only 1 or 2.");
+			    try {
+			    	whichArchitecture = Integer.parseInt(sc.next());
+			    	sc.nextLine();
+			    } catch (NumberFormatException e) {
+			        System.err.println("Argument must be an integer.");
+			    }
+			}
+			System.out.println("Please provide the path to the titles list.");
+			titles = readLines(sc.nextLine());
+			System.out.println("Please provide the path to the list of words to ignore.");
+			ignored = readLines(sc.nextLine());
+			sc.close();
 		}
 		
 		// Switch between architecture		
