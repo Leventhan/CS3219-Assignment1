@@ -22,15 +22,17 @@ public class CircularShifter implements Observer {
 	
 	private void circularShift(String line) {
 		StringTokenizer tokenizer = new StringTokenizer(line, " ");
-		int count = 0;
 		Vector<Vector<String>> buffer = new Vector<Vector<String>>();
-		processShiftedLines(tokenizer, count, buffer);
+		processShiftedLines(tokenizer, buffer);
 		insertShiftedLines(buffer);
 	}
 
 	private void insertShiftedLines(Vector<Vector<String>> buffer) {
 		for (int x = 0; x < buffer.size(); x++) {
 			String shiftedLine = "";
+			if (isIgnored(buffer.get(x).get(0), ignoredList)) {
+				continue;
+			}
 			for (int y = 0; y < buffer.get(x).size(); y++) {
 				if (y == 0) {
 					shiftedLine = shiftedLine.concat(" " + buffer.get(x).get(y).toUpperCase());
@@ -44,14 +46,11 @@ public class CircularShifter implements Observer {
 		}
 	}
 
-	private void processShiftedLines(StringTokenizer tokenizer, int count,
+	private void processShiftedLines(StringTokenizer tokenizer,
 			Vector<Vector<String>> buffer) {
+		int count = 0;
 		while (tokenizer.hasMoreTokens()) {
 			String word = tokenizer.nextToken();
-			if (isIgnored(word, ignoredList)) {
-				addWord(count, buffer, word);
-				continue;
-			}
 			count++;
 			buffer.add(new Vector<String>());
 			addWord(count, buffer, word);

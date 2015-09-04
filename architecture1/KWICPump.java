@@ -10,7 +10,6 @@ public class KWICPump extends Pump {
 
 	@Override
 	public void generateInto(Pipe pipe) {
-		System.err.println("Pump forwarding to Pipe.");
 		pipe.receive(data);
 	}
 }

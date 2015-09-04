@@ -14,7 +14,6 @@ public class pruneIgnoredFilter extends Filter {
 
 	@Override
 	public Map<String, String[]> transform(Map<String, String[]> data) {
-		System.err.println("Pruning ignored sentences.");
 		List<String> newTitles = new ArrayList<String>();
 		String[] blacklist = data.get("ignored");
 		
