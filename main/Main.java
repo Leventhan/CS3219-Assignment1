@@ -32,8 +32,8 @@ public class Main {
 		    }
 		    
 		    // Parse files
-		    titles = readLines(args[1]);
-		    ignored = readLines(args[2]);
+		    titles = readLines(args[1].trim());
+		    ignored = readLines(args[2].trim());
 		} else {
 			Scanner sc = new Scanner(System.in);
 			while (whichArchitecture != 1 && whichArchitecture != 2) {
@@ -46,9 +46,9 @@ public class Main {
 			    }
 			}
 			System.out.println("Please provide the path to the titles list.");
-			titles = readLines(sc.nextLine());
+			titles = readLines(sc.nextLine().trim());
 			System.out.println("Please provide the path to the list of words to ignore.");
-			ignored = readLines(sc.nextLine());
+			ignored = readLines(sc.nextLine().trim());
 			sc.close();
 		}
 		

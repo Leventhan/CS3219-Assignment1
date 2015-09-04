@@ -11,7 +11,6 @@ public class circularShiftFilter extends Filter {
 
 	@Override
 	public Map<String, String[]> transform(Map<String, String[]> data) {
-		//System.err.println("Circular Shifting sentences.");
 		List<String> newTitles = new ArrayList<String>();
 		for (String sentence : data.get("titles")) {
 			List<String> newSentences = shift(sentence);

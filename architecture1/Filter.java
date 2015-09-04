@@ -10,12 +10,10 @@ public abstract class Filter implements Pipable{
     }
     
     public void receive(Map<String, String[]> data){
-    	//System.err.println("Filter received data.");
     	forward(transform(data));
     }
     
     public void forward(Map<String, String[]> data) {
-    	//System.err.println("Filter forwarding transformed data.");
     	output.receive(data);
     }
 
